@@ -1,72 +1,65 @@
-let locationField = document.getElementById("location-input");
-locationField.onchange = () => {
-  let locationField = document.getElementById("location-input").value;
-  let unitSelection = document.querySelector('input[name="unit"]:checked')
-    .value;
-  fetchWeatherData(locationField, unitSelection);
+const insertData = (data) => {
+  const tempDiv = document.getElementById('temp');
+  tempDiv.innerHTML = `It's ${data.temp}`;
+  const locationDiv = document.getElementById('location');
+  locationDiv.innerHTML = `in ${data.location}`;
 };
-
-let unitsFieldset = document.getElementById("units");
-unitsFieldset.onchange = () => {
-  let locationField = document.getElementById("location-input").value;
-  let unitSelection = document.querySelector('input[name="unit"]:checked')
-    .value;
-  if (locationField !== "") {
-    fetchWeatherData(locationField, unitSelection);
-  }
-};
-
-const fetchWeatherData = (location = "Vilnius", units = "metric") => {
-  let url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=f157c15ea898b6aa15d5c705663b54fc`;
-  console.log(url);
+/* eslint-disable no-use-before-define */
+const fetchWeatherData = (location = 'Vilnius', units = 'metric') => {
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=f157c15ea898b6aa15d5c705663b54fc`;
   fetch(url, {
-    mode: "cors",
+    mode: 'cors',
   })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      console.log(response);
-      let symbol = units == "metric" ? " °C" : " °F";
-      let data = {
+    .then((response) => response.json())
+    .then((response) => {
+      const symbol = units === 'metric' ? ' °C' : ' °F';
+      const data = {
         temp: Math.round(response.main.temp) + symbol,
-        location: location,
+        location,
       };
       insertData(data);
       changeAppearance(response.main.temp, units);
     });
 };
+/* eslint-enable no-use-before-define */
 
-const insertData = (data) => {
-  let tempDiv = document.getElementById("temp");
-  tempDiv.innerHTML = "It's " + data.temp;
-  let locationDiv = document.getElementById("location");
-  locationDiv.innerHTML = "in " + data.location;
+const locationField = document.getElementById('location-input');
+locationField.onchange = () => {
+  const locationField = document.getElementById('location-input').value;
+  const unitSelection = document.querySelector('input[name="unit"]:checked')
+    .value;
+  fetchWeatherData(locationField, unitSelection);
 };
 
-const changeAppearance = (temp, units) => {
-  console.log(temp);
-  if (units == "metric") {
-    if (temp < 10) {
-      changeTextColor("blue");
-    } else if (10 <= temp && temp < 15) {
-      changeTextColor("yellow");
-    } else {
-      changeTextColor("red");
-    }
-  } else {
-    if (temp < 50) {
-      changeTextColor("blue");
-    } else if (50 <= temp && temp < 59) {
-      changeTextColor("yellow");
-    } else {
-      changeTextColor("red");
-    }
+const unitsFieldset = document.getElementById('units');
+unitsFieldset.onchange = () => {
+  const locationField = document.getElementById('location-input').value;
+  const unitSelection = document.querySelector('input[name="unit"]:checked')
+    .value;
+  if (locationField !== '') {
+    fetchWeatherData(locationField, unitSelection);
   }
 };
 
 const changeTextColor = (color) => {
-  document.getElementById("temp").style.color = color;
+  document.getElementById('temp').style.color = color;
+};
+const changeAppearance = (temp, units) => {
+  if (units === 'metric') {
+    if (temp < 10) {
+      changeTextColor('blue');
+    } else if (temp >= 10 && temp < 15) {
+      changeTextColor('yellow');
+    } else {
+      changeTextColor('red');
+    }
+  } else if (temp < 50) {
+    changeTextColor('blue');
+  } else if (temp >= 50 && temp < 59) {
+    changeTextColor('yellow');
+  } else {
+    changeTextColor('red');
+  }
 };
 
 fetchWeatherData();
