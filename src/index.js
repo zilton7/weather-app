@@ -1,4 +1,4 @@
-import runApp from "./functions";
-import "./style.css";
+import runApp from './functions';
+import './style.css';
 
 runApp();
