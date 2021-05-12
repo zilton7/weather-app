@@ -33,6 +33,7 @@ const fetchWeatherData = (location = "Vilnius", units = "metric") => {
         location: location,
       };
       insertData(data);
+      changeAppearance(response.main.temp, units);
     });
 };
 
@@ -41,6 +42,31 @@ const insertData = (data) => {
   tempDiv.innerHTML = "It's " + data.temp;
   let locationDiv = document.getElementById("location");
   locationDiv.innerHTML = "in " + data.location;
+};
+
+const changeAppearance = (temp, units) => {
+  console.log(temp);
+  if (units == "metric") {
+    if (temp < 10) {
+      changeTextColor("blue");
+    } else if (10 <= temp && temp < 15) {
+      changeTextColor("yellow");
+    } else {
+      changeTextColor("red");
+    }
+  } else {
+    if (temp < 50) {
+      changeTextColor("blue");
+    } else if (50 <= temp && temp < 59) {
+      changeTextColor("yellow");
+    } else {
+      changeTextColor("red");
+    }
+  }
+};
+
+const changeTextColor = (color) => {
+  document.getElementById("temp").style.color = color;
 };
 
 fetchWeatherData();

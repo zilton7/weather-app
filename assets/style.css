@@ -1,0 +1,26 @@
+.content {
+  display: flex;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  margin-top: 15%;
+  padding: 2.5%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+}
+
+#temp {
+  font-size: 32px;
+}
+
+#location {
+  font-size: 24px;
+}
+
+#location-input {
+  font-size: 20px;
+  text-align: center;
+  width: 50%;
+}
