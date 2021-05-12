@@ -1,21 +1,35 @@
 let locationField = document.getElementById("location-input");
-locationField.onchange = (e) => {
-  alert(locationField.value);
+locationField.onchange = () => {
+  let locationField = document.getElementById("location-input").value;
+  let unitSelection = document.querySelector('input[name="unit"]:checked')
+    .value;
+  fetchWeatherData(locationField, unitSelection);
 };
 
-const fetchWeatherData = (location) => {
-  fetch(
-    `http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=f157c15ea898b6aa15d5c705663b54fc`,
-    {
-      mode: "cors",
-    }
-  )
+let unitsFieldset = document.getElementById("units");
+unitsFieldset.onchange = () => {
+  let locationField = document.getElementById("location-input").value;
+  let unitSelection = document.querySelector('input[name="unit"]:checked')
+    .value;
+  if (locationField !== "") {
+    fetchWeatherData(locationField, unitSelection);
+  }
+};
+
+const fetchWeatherData = (location = "Vilnius", units = "metric") => {
+  let url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=f157c15ea898b6aa15d5c705663b54fc`;
+  console.log(url);
+  fetch(url, {
+    mode: "cors",
+  })
     .then(function (response) {
       return response.json();
     })
     .then(function (response) {
+      console.log(response);
+      let symbol = units == "metric" ? " °C" : " °F";
       let data = {
-        temp: response.main.temp,
+        temp: Math.round(response.main.temp) + symbol,
         location: location,
       };
       insertData(data);
@@ -29,4 +43,4 @@ const insertData = (data) => {
   locationDiv.innerHTML = "in " + data.location;
 };
 
-fetchWeatherData("Telsiai");
+fetchWeatherData();
