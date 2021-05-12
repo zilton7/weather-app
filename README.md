@@ -7,6 +7,7 @@ I built a weather application, with basic styling, using JavaScript openweatherm
 ## Built With
 
 - JavaScript
+- Webpack
 - API
 - HTML/CSS
 
