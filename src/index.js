@@ -1,4 +1,4 @@
-import runApp from './functions';
+import { fetchWeatherData } from './functions';
 import './style.css';
 
-runApp();
+fetchWeatherData();
