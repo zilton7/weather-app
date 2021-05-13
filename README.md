@@ -30,6 +30,10 @@ $ cd weather-app
 ```
 $ npm install
 ```
+
+```
+$ npm run start
+```
 ### Prerequisites
 
 Free account for openweathermap.org 
