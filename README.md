@@ -2,7 +2,7 @@
 
 ![screenshot](./app_screenshot.png)
 
-I built a weather application, with basic styling, using JavaScript openweathermap.org and API. Visitor is able to input the name of the city and instantly get weather information for procided location.
+A weather application with basic styling, built using JavaScript and the OpenWeatherMap.org's API. The visitor is able to input the name of the city and instantly get weather information for the provided location.
 
 ## Built With
 
